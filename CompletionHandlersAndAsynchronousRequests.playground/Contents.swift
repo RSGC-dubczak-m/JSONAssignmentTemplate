@@ -94,8 +94,21 @@ class ViewController : UIViewController {
             
         }
         
+        let calendar = NSCalendar.currentCalendar()
+        let components = calendar.components([.Day , .Month , .Year], fromDate: NSDate())
+        
+        let year =  components.year
+        let month = components.month
+        let day = components.day
+        
+        print(year)
+        print(month)
+        print(day)
+        
+        
         // Define a URL to retrieve a JSON file from
-        let address : String = "http://www.learnswiftonline.com/Samples/subway.json"
+        let address : String = "http://gd2.mlb.com/components/game/mlb/year_\(year)/month_0\(month)/day_0\(day)/master_scoreboard.json"
+        
         
         // Try to make a URL request object
         if let url = NSURL(string: address) {
@@ -124,7 +137,7 @@ class ViewController : UIViewController {
         }
         
     }
-    
+
     // This is the method that will run as soon as the view controller is created
     override func viewDidLoad() {
         
