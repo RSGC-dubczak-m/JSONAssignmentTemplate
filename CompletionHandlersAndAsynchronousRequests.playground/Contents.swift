@@ -93,13 +93,13 @@ class ViewController : UIViewController {
             }
             
         }
-        
+        //============ String Builder =========
         let calendar = NSCalendar.currentCalendar()
         let components = calendar.components([.Day , .Month , .Year], fromDate: NSDate())
         
         let year =  components.year
         let month = components.month
-        let day = components.day
+        let day = components.day - 1
         
         print(year)
         print(month)
@@ -107,9 +107,24 @@ class ViewController : UIViewController {
         
         
         // Define a URL to retrieve a JSON file from
-        let address : String = "http://gd2.mlb.com/components/game/mlb/year_\(year)/month_0\(month)/day_0\(day)/master_scoreboard.json"
+        var address : String = "http://gd2.mlb.com/components/game/mlb/"
+        address += "year_"
+        address += String(year)
+        address += "/month_"
+        if month < 10 {
+            address += "0"
+        }
+        address += String(month)
+        address += "/day_"
+        if day < 10 {
+            address += "0"
+        }
+        address += String(day)
+        address +=  "/master_scoreboard.json"
         
+        address
         
+        //============= End of String Builder ===============
         // Try to make a URL request object
         if let url = NSURL(string: address) {
             
