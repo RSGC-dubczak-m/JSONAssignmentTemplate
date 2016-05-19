@@ -20,8 +20,6 @@ class ViewController : UIViewController {
         do {
             
             // Do the initial de-serialization
-            // Source JSON is here:
-            // http://www.learnswiftonline.com/Samples/subway.json
             //
             let json = try NSJSONSerialization.JSONObjectWithData(theData, options: NSJSONReadingOptions.AllowFragments) as! AnyObject
             
@@ -33,6 +31,31 @@ class ViewController : UIViewController {
             // Now we can parse this...
             print("")
             print("Now, add your parsing code here...")
+            
+            do {
+            
+                let data = try NSJSONSerialization.JSONObjectWithData(theData, options: NSJSONReadingOptions.AllowFragments) as! AnyObject
+                
+                guard let scoreboardData = data as? [String : AnyObject], let firstLayer = scoreboardData["data"], let games = firstLayer["games"] else {
+                return
+                }
+                
+                if let individualGames = games as? [AnyObject]{
+                    
+                }else{
+                    return
+                }
+                
+                
+                games
+                
+            } catch let error as NSError {
+                
+                print("Failed to load JSON.")
+                
+                print("\(error.localizedDescription)")
+            }
+
             
             // Now we can update the UI
             // (must be done asynchronously)
