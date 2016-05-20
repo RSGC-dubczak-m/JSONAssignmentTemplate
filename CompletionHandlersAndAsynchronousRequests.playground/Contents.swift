@@ -11,51 +11,68 @@ class ViewController : UIViewController {
     // If data is successfully retrieved from the server, we can parse it here
     func parseMyJSON(theData : NSData) {
         
-        // Print the provided data
-        print("")
-        print("====== the data provided to parseMyJSON is as follows ======")
-        print(theData)
         
         // De-serializing JSON can throw errors, so should be inside a do-catch structure
         do {
             
-            // Do the initial de-serialization
-            //
-            let json = try NSJSONSerialization.JSONObjectWithData(theData, options: NSJSONReadingOptions.AllowFragments) as! AnyObject
             
-            // Print retrieved JSON
-            print("")
-            print("====== the retrieved JSON is as follows ======")
-            print(json)
+            let data = try NSJSONSerialization.JSONObjectWithData(theData, options: NSJSONReadingOptions.AllowFragments) as! AnyObject
             
-            // Now we can parse this...
-            print("")
-            print("Now, add your parsing code here...")
-            
-            do {
-            
-                let data = try NSJSONSerialization.JSONObjectWithData(theData, options: NSJSONReadingOptions.AllowFragments) as! AnyObject
-                
-                guard let scoreboardData = data as? [String : AnyObject], let firstLayer = scoreboardData["data"], let games = firstLayer["games"] else {
+            guard let scoreboardData = data as? [String : AnyObject] else {
+                print("had a problem with first few levels of JSON parsing")
                 return
-                }
                 
-                if let individualGames = games as? [AnyObject]{
-                    
-                }else{
+            }
+            
+            scoreboardData
+            guard let firstLayer = scoreboardData["data"] as? [String : AnyObject] else {
+                print ("problem with first layer parsing")
+                return
+            }
+            
+            firstLayer
+            guard let games = firstLayer["games"] as? [String : AnyObject] else {
+                print("had a problem with layer 3")
+                return
+            }
+            games
+            
+            guard let game : [AnyObject] = games["game"] as? [AnyObject] else {
+                print("problem with layer 4")
+                return
+            }
+            game
+
+            
+            // Iterate over each game
+            for i in game {
+    
+               // print("inside game loop")
+                
+                // Cast this AnyObject into a dictionary of type [ String : AnyObject ]
+                guard let gameData  = i as? [String : AnyObject] else {
+                    print("could not parse data for a game")
+                    return
+
+                }
+                gameData
+
+                guard let homeTeamName = gameData["home_team_name"] else {
+                    print("could not find location")
+                    return
+                }
+                guard let awayTeamName = gameData["away_team_name"] else {
+                    print("could not find location")
                     return
                 }
                 
+                 //use the dictionary
+                print("Home team is: \(homeTeamName) and the away team is: \(awayTeamName)")
                 
-                games
-                
-            } catch let error as NSError {
-                
-                print("Failed to load JSON.")
-                
-                print("\(error.localizedDescription)")
-            }
-
+           }
+            
+            
+            
             
             // Now we can update the UI
             // (must be done asynchronously)
@@ -72,7 +89,7 @@ class ViewController : UIViewController {
     
     // Set up and begin an asynchronous request for JSON data
     func getMyJSON() {
-
+        
         // Define a completion handler
         // The completion handler is what gets called when this **asynchronous** network request is completed.
         // This is where we'd process the JSON retrieved
@@ -92,18 +109,7 @@ class ViewController : UIViewController {
                 
                 // If the request was successful, parse the given data
                 if r.statusCode == 200 {
-        
-                    // Show debug information (if a request was completed successfully)            
-                    print("")
-                    print("====== data from the request follows ======")
-                    print(data)
-                    print("")
-                    print("====== response codes from the request follows ======")
-                    print(response)
-                    print("")
-                    print("====== errors from the request follows ======")
-                    print(error)
-            
+                    
                     if let d = data {
                         
                         // Parse the retrieved data
@@ -175,17 +181,17 @@ class ViewController : UIViewController {
         }
         
     }
-
+    
     // This is the method that will run as soon as the view controller is created
     override func viewDidLoad() {
         
         // Sub-classes of UIViewController must invoke the superclass method viewDidLoad in their
         // own version of viewDidLoad()
         super.viewDidLoad()
-
+        
         // Make the view's background be gray
         view.backgroundColor = UIColor.lightGrayColor()
-
+        
         /*
          * Further define label that will show JSON data
          */
@@ -202,7 +208,7 @@ class ViewController : UIViewController {
         
         // Add the label to the superview
         view.addSubview(jsonResult)
-
+        
         /*
          * Add a button
          */
@@ -219,7 +225,7 @@ class ViewController : UIViewController {
         
         // Add the button into the super view
         view.addSubview(getData)
-
+        
         /*
          * Layout all the interface elements
          */
