@@ -3,12 +3,17 @@
 import UIKit
 import XCPlayground
 
+
+
 class ViewController : UIViewController {
+    
+    //how many games were there
+    var gameCount = 0
     
     // Views that need to be accessible to all methods
     let jsonResult = UILabel()
     
-    // If data is successfully retrieved from the server, we can parse it here
+    // ---------------If data is successfully retrieved from the server, we can parse it here----------------
     func parseMyJSON(theData : NSData) {
         
         
@@ -47,6 +52,8 @@ class ViewController : UIViewController {
             // Iterate over each game
             for i in game {
     
+                gameCount += 1
+                
                // print("inside game loop")
                 
                 // Cast this AnyObject into a dictionary of type [ String : AnyObject ]
@@ -86,6 +93,7 @@ class ViewController : UIViewController {
         
         
     }
+    //------------------------------------------------------------------------------------------------------------
     
     // Set up and begin an asynchronous request for JSON data
     func getMyJSON() {
@@ -158,7 +166,7 @@ class ViewController : UIViewController {
         if let url = NSURL(string: address) {
             
             // We have an valid URL to work with
-            print(url)
+           // print(url)
             
             // Now we create a URL request object
             let urlRequest = NSURLRequest(URL: url)
