@@ -36,16 +36,16 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-</dict>
-</plist>
-<key>NSAppTransportSecurity</key>
-<dict>
-    <key>NSExceptionDomains</key>
+    <key>NSAppTransportSecurity</key>
     <dict>
-        <key>gd2.mlb.com</key>
+        <key>NSExceptionDomains</key>
         <dict>
-            <key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
-            <true/>
+            <key>gd2.mlb.com</key>
+            <dict>
+                <key>NSTemporaryExceptionAllowsInsecureHTTPLoads</key>
+                <true/>
+            </dict>
         </dict>
     </dict>
 </dict>
+</plist>

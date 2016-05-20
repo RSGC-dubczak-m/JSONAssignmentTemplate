@@ -144,9 +144,9 @@ class scoresListViewController : UIViewController, UITableViewDataSource, UITabl
         let month = components.month
         let day = components.day - 1
         
-        print(year)
-        print(month)
-        print(day)
+        //print(year)
+        //print(month)
+        //print(day)
         
         
         // Define a URL to retrieve a JSON file from

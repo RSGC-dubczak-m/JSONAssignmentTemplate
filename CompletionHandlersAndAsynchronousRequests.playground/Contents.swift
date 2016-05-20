@@ -10,6 +10,36 @@ class ViewController : UIViewController {
     //how many games were there
     var gameCount = 0
     
+    var homeTeam = [AnyObject]()
+    
+    var awayTeam = [AnyObject]()
+    
+    var awayTeamWins = [AnyObject]()
+    
+    var awayTeamLosses = [AnyObject]()
+    
+    var homeTeamWins = [AnyObject]()
+    
+    var homeTeamLosses = [AnyObject]()
+    
+    var winningPitchers = [AnyObject]()
+    
+    var losingPitchers = [AnyObject]()
+    
+    var savePitchers = [AnyObject]()
+    
+    var homeTeamRuns = [AnyObject]()
+    
+    var awayTeamRuns = [AnyObject]()
+    
+    var bothTeamHomeRuns = [AnyObject]()
+    
+    var homeTeamHits = [AnyObject]()
+    
+    var awayTeamHits = [AnyObject]()
+    
+    
+    
     // Views that need to be accessible to all methods
     let jsonResult = UILabel()
     
@@ -73,8 +103,76 @@ class ViewController : UIViewController {
                     return
                 }
                 
+                guard let homeTeamWin = gameData["home_win"] else {
+                    print("could not homw wins")
+                    return
+                }
+                guard let awayTeamWin = gameData["away_win"] else {
+                    print("could not find away wins")
+                    return
+                }
+                
+                guard let homeTeamLoss = gameData["home_loss"] else {
+                    print("could not home wins")
+                    return
+                }
+                guard let awayTeamLoss = gameData["away_loss"] else {
+                    print("could not find away wins")
+                    return
+                }
+                
+                guard let winningPitcher = gameData["winning_pitcher"] as? [String : AnyObject] else {
+                    print("could not find winning pitcher")
+                    return
+                }
+                guard let winningPitcherName = winningPitcher["last"]  else {
+                    print("could not find pitcher last name")
+                    return
+                }
+                winningPitcherName
+                guard let losingPitcher = gameData["losing_pitcher"] as? [String : AnyObject] else {
+                    print("could not find losing pitcher")
+                    return
+                }
+                guard let losingPitcherName = losingPitcher["last"] else {
+                    print("could not find losing pitcher")
+                    return
+                }
+                losingPitcherName
+
+                guard let bothTeamHomeRun = gameData["home_runs"] as? [String : AnyObject] else {
+                    print("could not find hr list 1")
+                    return
+                }
+                guard let playersHomeRuns : [AnyObject] = bothTeamHomeRun["player"] as? [AnyObject] else {
+                    print("could not find hr list 2")
+                    return
+                }
+                playersHomeRuns
                  //use the dictionary
                 print("Home team is: \(homeTeamName) and the away team is: \(awayTeamName)")
+                
+                //adding elements to wins dictionaries
+                homeTeamWins.append(homeTeamWin)
+                awayTeamWins.append(awayTeamWin)
+                
+                //adding elements to team names dictionaries
+                homeTeam.append(homeTeamName)
+                awayTeam.append(awayTeamName)
+                
+                //adding elements to losses dictionaries
+                homeTeamLosses.append(homeTeamLoss)
+                awayTeamLosses.append(awayTeamLoss)
+               
+                //adding elements to winning pitcher dictionary
+                winningPitchers.append(winningPitcherName)
+                
+                //losing pitcher
+                losingPitchers.append(losingPitcherName)
+
+                
+                
+                
                 
            }
             
