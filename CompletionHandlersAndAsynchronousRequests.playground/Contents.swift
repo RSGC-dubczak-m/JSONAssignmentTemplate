@@ -3,12 +3,12 @@
 import UIKit
 import XCPlayground
 
-
+//how many games were there
+var gameCount = 0
 
 class ViewController : UIViewController {
     
-    //how many games were there
-    var gameCount = 0
+
     
     var homeTeam = [AnyObject]()
     
@@ -272,7 +272,7 @@ class ViewController : UIViewController {
         } catch let error as NSError {
             print ("Failed to load: \(error.localizedDescription)")
         }
-        
+        print(gameCount)
         
     }
     //------------------------------------------------------------------------------------------------------------
@@ -452,3 +452,4 @@ class ViewController : UIViewController {
 XCPlaygroundPage.currentPage.liveView = ViewController()
 // This playground page needs to continue executing until stopped, since network reqeusts are asynchronous
 XCPlaygroundPage.currentPage.needsIndefiniteExecution = true
+

@@ -10,11 +10,50 @@ import Foundation
 import UIKit
 
 
-class scoresListViewController : UIViewController, UITableViewDataSource, UITableViewDelegate {
+class scoresListViewController : UIViewController , UITableViewDataSource, UITableViewDelegate {
+    
     
     
     //how many games were there
-    var gameCount = 0
+    var gameCount = 4
+    
+    var homeTeam = [AnyObject]()
+    
+    var awayTeam = [AnyObject]()
+    
+    var awayTeamWins = [AnyObject]()
+    
+    var awayTeamLosses = [AnyObject]()
+    
+    var homeTeamWins = [AnyObject]()
+    
+    var homeTeamLosses = [AnyObject]()
+    
+    var winningPitchers = [AnyObject]()
+    
+    var losingPitchers = [AnyObject]()
+    
+    var savePitchers = [AnyObject]()
+    
+    var homeTeamRuns = [AnyObject]()
+    
+    var awayTeamRuns = [AnyObject]()
+    
+    var homeTeamHomeRuns = [AnyObject]()
+    
+    var awayTeamHomeRuns = [AnyObject]()
+    
+    var bothTeamHomeRuns = [AnyObject]()
+    
+    var homeTeamHits = [AnyObject]()
+    
+    var awayTeamHits = [AnyObject]()
+    
+    var homeTeamErrors = [AnyObject]()
+    
+    var awayTeamErrors = [AnyObject]()
+    
+    
     
     // Views that need to be accessible to all methods
     let jsonResult = UILabel()
@@ -79,8 +118,152 @@ class scoresListViewController : UIViewController, UITableViewDataSource, UITabl
                     return
                 }
                 
+                guard let homeTeamWin = gameData["home_win"] else {
+                    print("could not homw wins")
+                    return
+                }
+                guard let awayTeamWin = gameData["away_win"] else {
+                    print("could not find away wins")
+                    return
+                }
+                
+                guard let homeTeamLoss = gameData["home_loss"] else {
+                    print("could not home wins")
+                    return
+                }
+                guard let awayTeamLoss = gameData["away_loss"] else {
+                    print("could not find away wins")
+                    return
+                }
+                
+                guard let winningPitcher = gameData["winning_pitcher"] as? [String : AnyObject] else {
+                    print("could not find winning pitcher")
+                    return
+                }
+                guard let winningPitcherName = winningPitcher["last"]  else {
+                    print("could not find pitcher last name")
+                    return
+                }
+               // winningPitcherName
+                guard let losingPitcher = gameData["losing_pitcher"] as? [String : AnyObject] else {
+                    print("could not find losing pitcher")
+                    return
+                }
+                guard let losingPitcherName = losingPitcher["last"] else {
+                    print("could not find losing pitcher")
+                    return
+                }
+               // losingPitcherName
+                
+                guard let linescore = gameData["linescore"] as? [String : AnyObject] else {
+                    print("failed to parse linescore")
+                    return
+                }
+               // linescore
+                
+                guard let bothHomeRuns = linescore["hr"] as? [String : AnyObject] else {
+                    print("failed to find hr totals")
+                    return
+                }
+               // bothHomeRuns
+                guard let homeTeamHR = bothHomeRuns["home"] else {
+                    print("failed to get hr data 2")
+                    return
+                }
+                //homeTeamHR
+                guard let awayTeamHR = bothHomeRuns["away"] else {
+                    print("failed to get hr data 3")
+                    return
+                }
+               // awayTeamHR
+                
+                guard let bothRuns = linescore["r"] as? [String : AnyObject] else {
+                    print("failed to find r totals")
+                    return
+                }
+               // bothRuns
+                guard let homeTeamR = bothRuns["home"] else {
+                    print("failed to get r data 2")
+                    return
+                }
+               // homeTeamR
+                guard let awayTeamR = bothRuns["away"] else {
+                    print("failed to get r data 3")
+                    return
+                }
+                //awayTeamR
+                
+                guard let bothErrors = linescore["e"] as? [String : AnyObject] else {
+                    print("failed to find e totals")
+                    return
+                }
+                //bothErrors
+                guard let homeTeamE = bothErrors["home"] else {
+                    print("failed to get e data 2")
+                    return
+                }
+                //homeTeamE
+                guard let awayTeamE = bothErrors["away"] else {
+                    print("failed to get e data 3")
+                    return
+                }
+                //awayTeamE
+                
+                guard let bothHits = linescore["h"] as? [String : AnyObject] else {
+                    print("failed to find e totals")
+                    return
+                }
+                //bothHits
+                guard let homeTeamH = bothHits["home"] else {
+                    print("failed to get h data 2")
+                    return
+                }
+                //homeTeamH
+                guard let awayTeamH = bothHits["away"] else {
+                    print("failed to get h data 3")
+                    return
+                }
+               // awayTeamH
+                
+                
+                
+                
                 //use the dictionary
                 print("Home team is: \(homeTeamName) and the away team is: \(awayTeamName)")
+                
+                //adding elements to wins dictionaries
+                homeTeamWins.append(homeTeamWin)
+                awayTeamWins.append(awayTeamWin)
+                
+                //adding elements to team names dictionaries
+                homeTeam.append(homeTeamName)
+                awayTeam.append(awayTeamName)
+                
+                //adding elements to losses dictionaries
+                homeTeamLosses.append(homeTeamLoss)
+                awayTeamLosses.append(awayTeamLoss)
+                
+                //adding elements to winning pitcher dictionary
+                winningPitchers.append(winningPitcherName)
+                
+                //losing pitcher
+                losingPitchers.append(losingPitcherName)
+                
+                //homerun counts for each team
+                homeTeamHomeRuns.append(homeTeamHR)
+                awayTeamHomeRuns.append(awayTeamHR)
+                
+                //run counts for each team
+                homeTeamRuns.append(homeTeamR)
+                awayTeamRuns.append(awayTeamR)
+                
+                //error counts for each team
+                homeTeamErrors.append(homeTeamE)
+                awayTeamErrors.append(awayTeamE)
+                
+                //hit counts for each team
+                homeTeamHits.append(homeTeamH)
+                awayTeamHits.append(awayTeamH)
                 
             }
             
@@ -99,7 +282,7 @@ class scoresListViewController : UIViewController, UITableViewDataSource, UITabl
         
         
     }
-    //------------------------------------------------------------------------------------------------------
+    //------------------------------------------------------------------------------------------------------------
     
     // Set up and begin an asynchronous request for JSON data
     func getMyJSON() {
@@ -146,7 +329,7 @@ class scoresListViewController : UIViewController, UITableViewDataSource, UITabl
         
         //print(year)
         //print(month)
-        //print(day)
+       // print(day)
         
         
         // Define a URL to retrieve a JSON file from
@@ -164,6 +347,8 @@ class scoresListViewController : UIViewController, UITableViewDataSource, UITabl
         }
         address += String(day)
         address +=  "/master_scoreboard.json"
+        
+        //address
         
         //============= End of String Builder ===============
         // Try to make a URL request object
@@ -199,9 +384,29 @@ class scoresListViewController : UIViewController, UITableViewDataSource, UITabl
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
+        print("Right before JSON")
+        getMyJSON()
+        print("Right After JSON")
         self.tableView.dataSource = self
         self.tableView.delegate = self
-        getMyJSON()
+        //var gameCount2 = gameCount
+        
+        func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+            print(gameCount)
+            return gameCount
+            
+        }
+        
+        func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+            var cell = UITableViewCell()
+            
+            cell.textLabel!.text = "Table To Be Filled"
+            cell.backgroundColor = UIColor.cyanColor()
+            
+            
+            return cell
+        }
+        
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -216,6 +421,8 @@ class scoresListViewController : UIViewController, UITableViewDataSource, UITabl
         cell.textLabel!.text = "Table To Be Filled"
         cell.backgroundColor = UIColor.cyanColor()
         
+        
         return cell
     }
+    
 }
