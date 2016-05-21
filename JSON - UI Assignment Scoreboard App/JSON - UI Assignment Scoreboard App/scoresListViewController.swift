@@ -50,6 +50,8 @@ var homeTeamErrors = [AnyObject]()
 
 var awayTeamErrors = [AnyObject]()
 
+
+
 class openingViewController : UIViewController {
     
     
@@ -402,13 +404,12 @@ class scoresListViewController : UIViewController , UITableViewDataSource, UITab
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
-        
         return homeTeam.count
         
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        var cell = UITableViewCell()
+        let cell = UITableViewCell()
         
 
         cell.textLabel!.text = matchup[indexPath.row]
@@ -419,11 +420,13 @@ class scoresListViewController : UIViewController , UITableViewDataSource, UITab
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        self.performSegueWithIdentifier("tableToRecapSegue", sender: self)
+        self.performSegueWithIdentifier("mainToOtherSegue", sender: self)
     }
     
 }
 
 class scoreSummaryViewController : UIViewController {
-    
+    override func viewDidLoad() {
+        view.backgroundColor = UIColor.blueColor()
+    }
 }

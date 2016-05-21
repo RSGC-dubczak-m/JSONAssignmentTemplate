@@ -43,12 +43,30 @@
                     <navigationItem key="navigationItem" id="i0d-As-ufU"/>
                     <connections>
                         <outlet property="tableView" destination="4Ii-7s-TwW" id="8Al-Ig-e8c"/>
-                        <segue destination="2k8-dS-t2b" kind="show" identifier="tableToRecapSegue" id="pKS-cn-qF0"/>
+                        <segue destination="ceC-bf-Mvp" kind="show" identifier="mainToOtherSegue" id="ADn-GM-XWe"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sfY-q5-qRr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1507" y="261"/>
+            <point key="canvasLocation" x="1531" y="261"/>
+        </scene>
+        <!--Score Summary View Controller-->
+        <scene sceneID="WeU-Au-QeO">
+            <objects>
+                <viewController id="ceC-bf-Mvp" customClass="scoreSummaryViewController" customModule="JSON___UI_Assignment_Scoreboard_App" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="KXj-cJ-TkX"/>
+                        <viewControllerLayoutGuide type="bottom" id="Twb-Jo-4Ug"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="hf9-a8-jBE">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="rjz-nE-vOC" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2253" y="253"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ZfK-UB-xBG">
@@ -65,24 +83,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zvc-Rs-fpb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="796" y="253"/>
-        </scene>
-        <!--Score Summary View Controller-->
-        <scene sceneID="xtE-h5-Oix">
-            <objects>
-                <viewController id="2k8-dS-t2b" customClass="scoreSummaryViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="aVO-zE-k3d"/>
-                        <viewControllerLayoutGuide type="bottom" id="MNe-Xt-JYk"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="cwB-R7-Pp5">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="SPL-yB-ZOh"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1KQ-jx-tYE" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2213" y="261"/>
         </scene>
         <!--Opening View Controller-->
         <scene sceneID="1c0-AI-Moc">
