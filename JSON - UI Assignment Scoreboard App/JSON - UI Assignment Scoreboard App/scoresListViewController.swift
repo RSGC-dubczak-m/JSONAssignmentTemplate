@@ -8,7 +8,7 @@
 
 import Foundation
 import UIKit
-
+var boolViewDidLoad = false
 
 class scoresListViewController : UIViewController , UITableViewDataSource, UITableViewDelegate {
     
@@ -390,35 +390,20 @@ class scoresListViewController : UIViewController , UITableViewDataSource, UITab
         self.tableView.dataSource = self
         self.tableView.delegate = self
         //var gameCount2 = gameCount
-        
-        func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            print(gameCount)
-            return gameCount
-            
-        }
-        
-        func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-            var cell = UITableViewCell()
-            
-            cell.textLabel!.text = "Table To Be Filled"
-            cell.backgroundColor = UIColor.cyanColor()
-            
-            
-            return cell
-        }
+        boolViewDidLoad = true
         
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         print(gameCount)
-        return gameCount
+        return self.homeTeam.count
         
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = UITableViewCell()
         
-        cell.textLabel!.text = "Table To Be Filled"
+        cell.textLabel!.text = self.homeTeam[indexPath.row] as? String
         cell.backgroundColor = UIColor.cyanColor()
         
         

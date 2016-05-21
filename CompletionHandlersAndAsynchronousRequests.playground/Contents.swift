@@ -413,6 +413,7 @@ class ViewController : UIViewController {
         // Required to auto layout this button
         getData.translatesAutoresizingMaskIntoConstraints = false
         
+        
         // Add the button into the super view
         view.addSubview(getData)
         
