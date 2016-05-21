@@ -396,18 +396,24 @@ class scoresListViewController : UIViewController , UITableViewDataSource, UITab
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         print(gameCount)
-        return self.homeTeam.count
+        return 2
+        //return self.homeTeam.count
         
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = UITableViewCell()
         
-        cell.textLabel!.text = self.homeTeam[indexPath.row] as? String
+        cell.textLabel!.text = "Hi"
+        //cell.textLabel!.text = self.homeTeam[indexPath.row] as? String
         cell.backgroundColor = UIColor.cyanColor()
         
         
         return cell
+    }
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        self.performSegueWithIdentifier("tableToRecapSegue", sender: self)
     }
     
 }
