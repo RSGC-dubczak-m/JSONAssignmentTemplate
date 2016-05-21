@@ -61,8 +61,24 @@
                     <view key="view" contentMode="scaleToFill" id="hf9-a8-jBE">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Teams" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jJk-Di-hcd">
+                                <rect key="frame" x="25" y="94" width="550" height="36"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="35"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="jJk-Di-hcd" firstAttribute="leading" secondItem="hf9-a8-jBE" secondAttribute="leadingMargin" constant="5" id="1nd-ts-S5a"/>
+                            <constraint firstItem="jJk-Di-hcd" firstAttribute="top" secondItem="KXj-cJ-TkX" secondAttribute="bottom" constant="30" id="Lui-Yb-kDN"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="jJk-Di-hcd" secondAttribute="trailing" constant="5" id="vRv-7c-A0P"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="bothTeams" destination="jJk-Di-hcd" id="jo9-si-LSi"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rjz-nE-vOC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

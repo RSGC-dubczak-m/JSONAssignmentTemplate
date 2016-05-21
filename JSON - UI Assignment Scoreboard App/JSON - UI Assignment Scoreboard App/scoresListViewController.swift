@@ -391,6 +391,7 @@ class openingViewController : UIViewController {
 
 class scoresListViewController : UIViewController , UITableViewDataSource, UITableViewDelegate {
 
+    var team1 = "Teams"
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -420,13 +421,28 @@ class scoresListViewController : UIViewController , UITableViewDataSource, UITab
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        self.team1 = matchup[indexPath.row]
         self.performSegueWithIdentifier("mainToOtherSegue", sender: self)
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        var homeTeamSending = segue.destinationViewController as! scoreSummaryViewController
+        homeTeamSending.team1 = self.team1
     }
     
 }
 
 class scoreSummaryViewController : UIViewController {
+    
+    var team1 = "Teams"
+
+    
+    @IBOutlet weak var bothTeams: UILabel!
+ 
     override func viewDidLoad() {
-        view.backgroundColor = UIColor.blueColor()
+        
+        self.bothTeams.text = team1
+        
+        //view.backgroundColor = UIColor.blueColor()
     }
 }
