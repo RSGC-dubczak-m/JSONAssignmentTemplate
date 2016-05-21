@@ -8,50 +8,49 @@
 
 import Foundation
 import UIKit
-var boolViewDidLoad = false
 
-class scoresListViewController : UIViewController , UITableViewDataSource, UITableViewDelegate {
-    
-    
-    
-    //how many games were there
-    var gameCount = 4
-    
-    var homeTeam = [AnyObject]()
-    
-    var awayTeam = [AnyObject]()
-    
-    var awayTeamWins = [AnyObject]()
-    
-    var awayTeamLosses = [AnyObject]()
-    
-    var homeTeamWins = [AnyObject]()
-    
-    var homeTeamLosses = [AnyObject]()
-    
-    var winningPitchers = [AnyObject]()
-    
-    var losingPitchers = [AnyObject]()
-    
-    var savePitchers = [AnyObject]()
-    
-    var homeTeamRuns = [AnyObject]()
-    
-    var awayTeamRuns = [AnyObject]()
-    
-    var homeTeamHomeRuns = [AnyObject]()
-    
-    var awayTeamHomeRuns = [AnyObject]()
-    
-    var bothTeamHomeRuns = [AnyObject]()
-    
-    var homeTeamHits = [AnyObject]()
-    
-    var awayTeamHits = [AnyObject]()
-    
-    var homeTeamErrors = [AnyObject]()
-    
-    var awayTeamErrors = [AnyObject]()
+
+var matchup = [String]()
+
+var count = 0
+
+var homeTeam = [AnyObject]()
+
+var awayTeam = [AnyObject]()
+
+var awayTeamWins = [AnyObject]()
+
+var awayTeamLosses = [AnyObject]()
+
+var homeTeamWins = [AnyObject]()
+
+var homeTeamLosses = [AnyObject]()
+
+var winningPitchers = [AnyObject]()
+
+var losingPitchers = [AnyObject]()
+
+var savePitchers = [AnyObject]()
+
+var homeTeamRuns = [AnyObject]()
+
+var awayTeamRuns = [AnyObject]()
+
+var homeTeamHomeRuns = [AnyObject]()
+
+var awayTeamHomeRuns = [AnyObject]()
+
+var bothTeamHomeRuns = [AnyObject]()
+
+var homeTeamHits = [AnyObject]()
+
+var awayTeamHits = [AnyObject]()
+
+var homeTeamErrors = [AnyObject]()
+
+var awayTeamErrors = [AnyObject]()
+
+class openingViewController : UIViewController {
     
     
     
@@ -96,8 +95,7 @@ class scoresListViewController : UIViewController , UITableViewDataSource, UITab
             
             // Iterate over each game
             for i in game {
-                
-                gameCount += 1
+
                 
                 // print("inside game loop")
                 
@@ -144,7 +142,7 @@ class scoresListViewController : UIViewController , UITableViewDataSource, UITab
                     print("could not find pitcher last name")
                     return
                 }
-               // winningPitcherName
+                // winningPitcherName
                 guard let losingPitcher = gameData["losing_pitcher"] as? [String : AnyObject] else {
                     print("could not find losing pitcher")
                     return
@@ -153,19 +151,19 @@ class scoresListViewController : UIViewController , UITableViewDataSource, UITab
                     print("could not find losing pitcher")
                     return
                 }
-               // losingPitcherName
+                // losingPitcherName
                 
                 guard let linescore = gameData["linescore"] as? [String : AnyObject] else {
                     print("failed to parse linescore")
                     return
                 }
-               // linescore
+                // linescore
                 
                 guard let bothHomeRuns = linescore["hr"] as? [String : AnyObject] else {
                     print("failed to find hr totals")
                     return
                 }
-               // bothHomeRuns
+                // bothHomeRuns
                 guard let homeTeamHR = bothHomeRuns["home"] else {
                     print("failed to get hr data 2")
                     return
@@ -175,18 +173,18 @@ class scoresListViewController : UIViewController , UITableViewDataSource, UITab
                     print("failed to get hr data 3")
                     return
                 }
-               // awayTeamHR
+                // awayTeamHR
                 
                 guard let bothRuns = linescore["r"] as? [String : AnyObject] else {
                     print("failed to find r totals")
                     return
                 }
-               // bothRuns
+                // bothRuns
                 guard let homeTeamR = bothRuns["home"] else {
                     print("failed to get r data 2")
                     return
                 }
-               // homeTeamR
+                // homeTeamR
                 guard let awayTeamR = bothRuns["away"] else {
                     print("failed to get r data 3")
                     return
@@ -223,7 +221,7 @@ class scoresListViewController : UIViewController , UITableViewDataSource, UITab
                     print("failed to get h data 3")
                     return
                 }
-               // awayTeamH
+                // awayTeamH
                 
                 
                 
@@ -265,6 +263,10 @@ class scoresListViewController : UIViewController , UITableViewDataSource, UITab
                 homeTeamHits.append(homeTeamH)
                 awayTeamHits.append(awayTeamH)
                 
+                
+                matchup.append("\(homeTeam[count]) vs. \(awayTeam[count])")
+                
+                count += 1
             }
             
             
@@ -329,7 +331,7 @@ class scoresListViewController : UIViewController , UITableViewDataSource, UITab
         
         //print(year)
         //print(month)
-       // print(day)
+        // print(day)
         
         
         // Define a URL to retrieve a JSON file from
@@ -379,34 +381,38 @@ class scoresListViewController : UIViewController , UITableViewDataSource, UITab
         
     }
 
+    
+    override func viewDidLoad() {
+        getMyJSON()
+    }
+}
+
+class scoresListViewController : UIViewController , UITableViewDataSource, UITableViewDelegate {
 
     
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
-        print("Right before JSON")
-        getMyJSON()
-        print("Right After JSON")
+
         self.tableView.dataSource = self
         self.tableView.delegate = self
-        //var gameCount2 = gameCount
-        boolViewDidLoad = true
+
         
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(gameCount)
-        return 2
-        //return self.homeTeam.count
+
+        
+        return homeTeam.count
         
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         var cell = UITableViewCell()
         
-        cell.textLabel!.text = "Hi"
-        //cell.textLabel!.text = self.homeTeam[indexPath.row] as? String
-        cell.backgroundColor = UIColor.cyanColor()
+
+        cell.textLabel!.text = matchup[indexPath.row]
+        cell.backgroundColor = UIColor.lightGrayColor()
         
         
         return cell
@@ -415,5 +421,9 @@ class scoresListViewController : UIViewController , UITableViewDataSource, UITab
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         self.performSegueWithIdentifier("tableToRecapSegue", sender: self)
     }
+    
+}
+
+class scoreSummaryViewController : UIViewController {
     
 }
