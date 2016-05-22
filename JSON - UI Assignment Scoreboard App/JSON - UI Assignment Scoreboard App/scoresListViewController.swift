@@ -428,7 +428,7 @@ class scoresListViewController : UIViewController , UITableViewDataSource, UITab
         
 
         cell.textLabel!.text = matchup[indexPath.row]
-        cell.backgroundColor = UIColor.lightGrayColor()
+       // cell.backgroundColor = UIColor.lightGrayColor()
         
         
         return cell
