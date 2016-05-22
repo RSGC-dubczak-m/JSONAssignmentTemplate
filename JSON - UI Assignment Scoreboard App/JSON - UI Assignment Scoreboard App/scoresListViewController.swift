@@ -545,8 +545,8 @@ class scoreSummaryViewController : UIViewController {
     override func viewDidLoad() {
         
         self.bothTeams.text = team1
-        self.winningPitcherLabel.text = winningPitcher1
-        self.losingPitcherLabel.text = losingPitcher1
+        self.winningPitcherLabel.text = "WP: \(winningPitcher1)"
+        self.losingPitcherLabel.text = "LP: \(losingPitcher1)"
         self.homeTeamRunsLabel.text = homeTeamRuns1
         self.awayTeamRunsLabel.text = awayTeamRuns1
         self.homeTeamRecord.text = "(\(homeTeamWins1) - \(homeTeamLosses1))"
