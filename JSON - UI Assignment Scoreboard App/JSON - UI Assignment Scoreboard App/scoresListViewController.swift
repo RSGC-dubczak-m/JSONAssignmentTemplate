@@ -229,7 +229,7 @@ class openingViewController : UIViewController {
                 
                 
                 //use the dictionary
-                print("Home team is: \(homeTeamName) and the away team is: \(awayTeamName)")
+                print("Parsing successful!!!")
                 
                 //adding elements to wins dictionaries
                 homeTeamWins.append(homeTeamWin)
@@ -392,6 +392,20 @@ class openingViewController : UIViewController {
 class scoresListViewController : UIViewController , UITableViewDataSource, UITableViewDelegate {
 
     var team1 = "Teams"
+    var winningPitcher1 = "Winning Pitcher"
+    var losingPitcher1 = "Losing Pitcher"
+    var homeTeamRuns1 = "0"
+    var awayTeamRuns1 = "0"
+    var homeTeamWins1 = "0"
+    var homeTeamLosses1 = "0"
+    var awayTeamWins1 = "0"
+    var awayTeamLosses1 = "0"
+    var homeTeamHits1 = "0"
+    var awayTeamHits1 = "0"
+    var homeTeamHomeRuns1 = "0"
+    var awayTeamHomeRuns1 = "0"
+    var homeTeamErrors1 = "0"
+    var awayTeamErrors1 = "0"
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -421,13 +435,74 @@ class scoresListViewController : UIViewController , UITableViewDataSource, UITab
     }
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        
+        //sets variables to index at row pressed
         self.team1 = matchup[indexPath.row]
+        self.winningPitcher1 = winningPitchers[indexPath.row] as! String
+        self.losingPitcher1 = losingPitchers[indexPath.row] as! String
+        self.homeTeamRuns1 = homeTeamRuns[indexPath.row] as! String
+        self.awayTeamRuns1 = awayTeamRuns[indexPath.row] as! String
+        self.homeTeamWins1 = homeTeamWins[indexPath.row] as! String
+        self.homeTeamLosses1 = homeTeamLosses[indexPath.row] as! String
+        self.awayTeamWins1 = awayTeamWins[indexPath.row] as! String
+        self.awayTeamLosses1 = awayTeamLosses[indexPath.row] as! String
+        self.homeTeamHits1 = homeTeamHits[indexPath.row] as! String
+        self.awayTeamHits1 = awayTeamHits[indexPath.row] as! String
+        self.homeTeamHomeRuns1 = homeTeamHomeRuns[indexPath.row] as! String
+        self.awayTeamHomeRuns1 = awayTeamHomeRuns[indexPath.row] as! String
+        self.homeTeamErrors1 = homeTeamErrors[indexPath.row] as! String
+        self.awayTeamErrors1 = awayTeamErrors[indexPath.row] as! String
+        
+        //runs segue
         self.performSegueWithIdentifier("mainToOtherSegue", sender: self)
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        var homeTeamSending = segue.destinationViewController as! scoreSummaryViewController
+        let homeTeamSending = segue.destinationViewController as! scoreSummaryViewController
         homeTeamSending.team1 = self.team1
+        
+        let losingPitcherSending = segue.destinationViewController as! scoreSummaryViewController
+        losingPitcherSending.losingPitcher1 = self.losingPitcher1
+        
+        let winningPitcherSending = segue.destinationViewController as! scoreSummaryViewController
+        winningPitcherSending.winningPitcher1 = self.winningPitcher1
+        
+        let homeTeamRunsSending = segue.destinationViewController as! scoreSummaryViewController
+        homeTeamRunsSending.homeTeamRuns1 = self.homeTeamRuns1
+        
+        let awayTeamRunsSending = segue.destinationViewController as! scoreSummaryViewController
+        awayTeamRunsSending.awayTeamRuns1 = self.awayTeamRuns1
+        
+        let homeTeamWinsSending = segue.destinationViewController as! scoreSummaryViewController
+        homeTeamWinsSending.homeTeamWins1 = self.homeTeamWins1
+        
+        let homeTeamLossesSending = segue.destinationViewController as! scoreSummaryViewController
+        homeTeamLossesSending.homeTeamLosses1 = self.homeTeamLosses1
+        
+        let awayTeamWinsSending = segue.destinationViewController as! scoreSummaryViewController
+        awayTeamWinsSending.awayTeamWins1 = self.awayTeamWins1
+        
+        let awayTeamLossesSending = segue.destinationViewController as! scoreSummaryViewController
+        awayTeamLossesSending.awayTeamLosses1 = self.awayTeamLosses1
+        
+        let homeTeamHitsSending = segue.destinationViewController as! scoreSummaryViewController
+        homeTeamHitsSending.homeTeamHits1 = self.homeTeamHits1
+        
+        let awayTeamHitsSending = segue.destinationViewController as! scoreSummaryViewController
+        awayTeamHitsSending.awayTeamHits1 = self.awayTeamHits1
+        
+        let homeTeamHomeRunsSending = segue.destinationViewController as! scoreSummaryViewController
+        homeTeamHomeRunsSending.homeTeamHomeRuns1 = self.homeTeamHomeRuns1
+        
+        let awayTeamHomeRunsSending = segue.destinationViewController as! scoreSummaryViewController
+        awayTeamHomeRunsSending.awayTeamHomeRuns1 = self.awayTeamHomeRuns1
+        
+        let homeTeamErrorsSending = segue.destinationViewController as! scoreSummaryViewController
+        homeTeamErrorsSending.homeTeamErrors1 = self.homeTeamErrors1
+        
+        let awayTeamErrorsSending = segue.destinationViewController as! scoreSummaryViewController
+        awayTeamErrorsSending.awayTeamErrors1 = self.awayTeamErrors1
+
     }
     
 }
@@ -435,14 +510,54 @@ class scoresListViewController : UIViewController , UITableViewDataSource, UITab
 class scoreSummaryViewController : UIViewController {
     
     var team1 = "Teams"
+    var winningPitcher1 = "Winning Pitcher"
+    var losingPitcher1 = "Losing Pitcher"
+    var homeTeamRuns1 = "0"
+    var awayTeamRuns1 = "0"
+    var homeTeamWins1 = "0"
+    var homeTeamLosses1 = "0"
+    var awayTeamWins1 = "0"
+    var awayTeamLosses1 = "0"
+    var homeTeamHits1 = "0"
+    var awayTeamHits1 = "0"
+    var homeTeamHomeRuns1 = "0"
+    var awayTeamHomeRuns1 = "0"
+    var homeTeamErrors1 = "0"
+    var awayTeamErrors1 = "0"
+
 
     
     @IBOutlet weak var bothTeams: UILabel!
+    
+    @IBOutlet weak var winningPitcherLabel: UILabel!
+    @IBOutlet weak var homeTeamRunsLabel: UILabel!
+    @IBOutlet weak var awayTeamRunsLabel: UILabel!
+    @IBOutlet weak var losingPitcherLabel: UILabel!
+    @IBOutlet weak var homeTeamRecord: UILabel!
+    @IBOutlet weak var awayTeamRecord: UILabel!
+    @IBOutlet weak var homeTeamHitsLabel: UILabel!
+    @IBOutlet weak var awayTeamHitsLabel: UILabel!
+    @IBOutlet weak var homeTeamErrorsLabel: UILabel!
+    @IBOutlet weak var homeTeamHomeRunsLabel: UILabel!
  
+    @IBOutlet weak var awayTeamHomeRunsLabel: UILabel!
+    @IBOutlet weak var awayTeamErrorsLabel: UILabel!
     override func viewDidLoad() {
         
         self.bothTeams.text = team1
+        self.winningPitcherLabel.text = winningPitcher1
+        self.losingPitcherLabel.text = losingPitcher1
+        self.homeTeamRunsLabel.text = homeTeamRuns1
+        self.awayTeamRunsLabel.text = awayTeamRuns1
+        self.homeTeamRecord.text = "(\(homeTeamWins1) - \(homeTeamLosses1))"
+        self.awayTeamRecord.text = "(\(awayTeamWins1) - \(awayTeamLosses1))"
+        self.homeTeamHitsLabel.text = "Hits:\(homeTeamHits1)"
+        self.awayTeamHitsLabel.text = "Hits:\(awayTeamHits1)"
+        self.homeTeamHomeRunsLabel.text = "Home Runs:\(homeTeamHomeRuns1)"
+        self.awayTeamHomeRunsLabel.text = "Home Runs:\(awayTeamHomeRuns1)"
+        self.homeTeamErrorsLabel.text = "Errors:\(homeTeamErrors1)"
+        self.awayTeamErrorsLabel.text = "Errors:\(awayTeamErrors1)"
         
-        //view.backgroundColor = UIColor.blueColor()
+        
     }
 }
