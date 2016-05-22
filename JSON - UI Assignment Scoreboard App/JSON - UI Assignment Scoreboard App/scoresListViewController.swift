@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-
+//create variables and dictionaries that will be populated during parsing
 var matchup = [String]()
 
 var count = 0
@@ -51,7 +51,7 @@ var homeTeamErrors = [AnyObject]()
 var awayTeamErrors = [AnyObject]()
 
 
-
+//opening page view conntoller
 class openingViewController : UIViewController {
     
     
@@ -67,39 +67,37 @@ class openingViewController : UIViewController {
         do {
             
             
-            let data = try NSJSONSerialization.JSONObjectWithData(theData, options: NSJSONReadingOptions.AllowFragments) as! AnyObject
+            let data = try NSJSONSerialization.JSONObjectWithData(theData, options: NSJSONReadingOptions.AllowFragments)
             
+            //parsing into first layer of data
             guard let scoreboardData = data as? [String : AnyObject] else {
                 print("had a problem with first few levels of JSON parsing")
                 return
                 
             }
             
-            scoreboardData
+            //continuing parsing
             guard let firstLayer = scoreboardData["data"] as? [String : AnyObject] else {
                 print ("problem with first layer parsing")
                 return
             }
             
-            firstLayer
+            //continuing parsing
             guard let games = firstLayer["games"] as? [String : AnyObject] else {
                 print("had a problem with layer 3")
                 return
             }
-            games
-            
+           
+           //parsing into array of games
             guard let game : [AnyObject] = games["game"] as? [AnyObject] else {
                 print("problem with layer 4")
                 return
             }
-            game
+           
             
             
             // Iterate over each game
             for i in game {
-
-                
-                // print("inside game loop")
                 
                 // Cast this AnyObject into a dictionary of type [ String : AnyObject ]
                 guard let gameData  = i as? [String : AnyObject] else {
@@ -107,125 +105,145 @@ class openingViewController : UIViewController {
                     return
                     
                 }
-                gameData
                 
+                //finding home team name
                 guard let homeTeamName = gameData["home_team_name"] else {
                     print("could not find location")
                     return
                 }
+                
+                //finding away team name
                 guard let awayTeamName = gameData["away_team_name"] else {
                     print("could not find location")
                     return
                 }
                 
+                //finding how many wins the home team has
                 guard let homeTeamWin = gameData["home_win"] else {
                     print("could not homw wins")
                     return
                 }
+                
+                //finding how many wins the away team has
                 guard let awayTeamWin = gameData["away_win"] else {
                     print("could not find away wins")
                     return
                 }
                 
+                
+                //finding how many losses the home team has
                 guard let homeTeamLoss = gameData["home_loss"] else {
                     print("could not home wins")
                     return
                 }
+                
+                //finding how many losses the away team has
                 guard let awayTeamLoss = gameData["away_loss"] else {
                     print("could not find away wins")
                     return
                 }
                 
+                //finding name of winning pitcher
                 guard let winningPitcher = gameData["winning_pitcher"] as? [String : AnyObject] else {
                     print("could not find winning pitcher")
                     return
                 }
+                
+                //finding last name of winning pitcher
                 guard let winningPitcherName = winningPitcher["last"]  else {
                     print("could not find pitcher last name")
                     return
                 }
-                // winningPitcherName
+                
+                // finding losing pitcher name
                 guard let losingPitcher = gameData["losing_pitcher"] as? [String : AnyObject] else {
                     print("could not find losing pitcher")
                     return
                 }
+                
+                //finding losing pitcher last name
                 guard let losingPitcherName = losingPitcher["last"] else {
                     print("could not find losing pitcher")
                     return
                 }
-                // losingPitcherName
                 
+                // parsing into the linescore to find runs, hits, etc.
                 guard let linescore = gameData["linescore"] as? [String : AnyObject] else {
                     print("failed to parse linescore")
                     return
                 }
-                // linescore
                 
+                // finding both team home runs
                 guard let bothHomeRuns = linescore["hr"] as? [String : AnyObject] else {
                     print("failed to find hr totals")
                     return
                 }
-                // bothHomeRuns
+                
+                // finding home team home runs
                 guard let homeTeamHR = bothHomeRuns["home"] else {
                     print("failed to get hr data 2")
                     return
                 }
-                //homeTeamHR
+                
+                //finding away team home runs
                 guard let awayTeamHR = bothHomeRuns["away"] else {
                     print("failed to get hr data 3")
                     return
                 }
-                // awayTeamHR
                 
+                //finding both teams runs
                 guard let bothRuns = linescore["r"] as? [String : AnyObject] else {
                     print("failed to find r totals")
                     return
                 }
-                // bothRuns
+                
+                // finding home teams runs
                 guard let homeTeamR = bothRuns["home"] else {
                     print("failed to get r data 2")
                     return
                 }
-                // homeTeamR
+                
+                // finding away teams runs
                 guard let awayTeamR = bothRuns["away"] else {
                     print("failed to get r data 3")
                     return
                 }
-                //awayTeamR
                 
+                //finding both teams errors
                 guard let bothErrors = linescore["e"] as? [String : AnyObject] else {
                     print("failed to find e totals")
                     return
                 }
-                //bothErrors
+                
+                //finding home team errrors
                 guard let homeTeamE = bothErrors["home"] else {
                     print("failed to get e data 2")
                     return
                 }
-                //homeTeamE
+                
+                //finding away team errors
                 guard let awayTeamE = bothErrors["away"] else {
                     print("failed to get e data 3")
                     return
                 }
-                //awayTeamE
                 
+                //finding both team hits
                 guard let bothHits = linescore["h"] as? [String : AnyObject] else {
                     print("failed to find e totals")
                     return
                 }
-                //bothHits
+                
+                //finding home team hits
                 guard let homeTeamH = bothHits["home"] else {
                     print("failed to get h data 2")
                     return
                 }
-                //homeTeamH
+                
+                //finding away team hits
                 guard let awayTeamH = bothHits["away"] else {
                     print("failed to get h data 3")
                     return
                 }
-                // awayTeamH
-                
-                
                 
                 
                 //use the dictionary
@@ -265,9 +283,10 @@ class openingViewController : UIViewController {
                 homeTeamHits.append(homeTeamH)
                 awayTeamHits.append(awayTeamH)
                 
-                
+                //populating matchups dictionary
                 matchup.append("\(homeTeam[count]) vs. \(awayTeam[count])")
                 
+                //counting the games
                 count += 1
             }
             
@@ -383,14 +402,16 @@ class openingViewController : UIViewController {
         
     }
 
-    
+    //gets JSON before page loads
     override func viewDidLoad() {
         getMyJSON()
     }
 }
 
+//second page view controller with table
 class scoresListViewController : UIViewController , UITableViewDataSource, UITableViewDelegate {
-
+    
+    //creating variables to send values of dictionaries to next page
     var team1 = "Teams"
     var winningPitcher1 = "Winning Pitcher"
     var losingPitcher1 = "Losing Pitcher"
@@ -407,6 +428,7 @@ class scoresListViewController : UIViewController , UITableViewDataSource, UITab
     var homeTeamErrors1 = "0"
     var awayTeamErrors1 = "0"
     
+    //creating table in code
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
@@ -417,12 +439,14 @@ class scoresListViewController : UIViewController , UITableViewDataSource, UITab
         
     }
     
+    //home many rows will the table have
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
         return homeTeam.count
         
     }
     
+    //what will be in each of the cells
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = UITableViewCell()
         
@@ -434,6 +458,7 @@ class scoresListViewController : UIViewController , UITableViewDataSource, UITab
         return cell
     }
     
+    //what happens when a row is pressed
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         
         //sets variables to index at row pressed
@@ -457,7 +482,9 @@ class scoresListViewController : UIViewController , UITableViewDataSource, UITab
         self.performSegueWithIdentifier("mainToOtherSegue", sender: self)
     }
     
+    //sending the contents of my created variables at the right index to the next view controller
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        
         let homeTeamSending = segue.destinationViewController as! scoreSummaryViewController
         homeTeamSending.team1 = self.team1
         
@@ -507,8 +534,10 @@ class scoresListViewController : UIViewController , UITableViewDataSource, UITab
     
 }
 
+//score summary view controller
 class scoreSummaryViewController : UIViewController {
     
+    //variables which recieved information about what to display from previous view controller
     var team1 = "Teams"
     var winningPitcher1 = "Winning Pitcher"
     var losingPitcher1 = "Losing Pitcher"
@@ -526,9 +555,8 @@ class scoreSummaryViewController : UIViewController {
     var awayTeamErrors1 = "0"
 
 
-    
+    //create all of the used labels in code
     @IBOutlet weak var bothTeams: UILabel!
-    
     @IBOutlet weak var winningPitcherLabel: UILabel!
     @IBOutlet weak var homeTeamRunsLabel: UILabel!
     @IBOutlet weak var awayTeamRunsLabel: UILabel!
@@ -539,11 +567,12 @@ class scoreSummaryViewController : UIViewController {
     @IBOutlet weak var awayTeamHitsLabel: UILabel!
     @IBOutlet weak var homeTeamErrorsLabel: UILabel!
     @IBOutlet weak var homeTeamHomeRunsLabel: UILabel!
- 
     @IBOutlet weak var awayTeamHomeRunsLabel: UILabel!
     @IBOutlet weak var awayTeamErrorsLabel: UILabel!
+    
     override func viewDidLoad() {
         
+        //tells swift what to display in each label
         self.bothTeams.text = team1
         self.winningPitcherLabel.text = "WP: \(winningPitcher1)"
         self.losingPitcherLabel.text = "LP: \(losingPitcher1)"
